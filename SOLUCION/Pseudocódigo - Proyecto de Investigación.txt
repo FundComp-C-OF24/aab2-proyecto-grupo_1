@@ -1,0 +1,52 @@
+Algoritmo Sistema de Facturacion del SuperMaxi - Loja
+
+  Inicio
+1.Metodo Principal
+2.Definir
+        nomArchivo, como Cadena
+
+3.nomArchivo = "inventario.txt"
+4.lista<Producto> inventario = leerInventario(nomArchivo)
+
+5.Para (Producto producto : inventario)
+        Escribir producto.ObtenerCodigo() , ". ", producto.ObtenerNombre() , " - " , producto.ObtenerPrecio() , " - " , producto.ObtenerCantidad() , " - " , producto.ObtenerCategoria() , " - " , producto.ObtenerCaducidad()
+6.Fin Metodo Principal
+
+1.Funcion lista<Producto> leerInventario (archivo x(a-z,A-Z," ")):x
+2.Definir
+        linea, nombre, categoria, caducidad, como Cadena
+        codigo, Cantidad como Entero
+        precio, como Real
+        partes(6),Cadena[a-z,A-Z," "]
+
+3.lista<Producto> inventario = nuevo Arreglolista
+
+4.Intentar (hacer copia de (nuevo Archivo(archivo)))
+
+        Mientras (leer hasta la ultima linea) hacer
+                linea = leer.porlinea
+                partes = leer.hasta(",")
+
+                codigo = leer(partes[0])
+                nombre = leer(partes[1])
+                precio = leer(partes[2])
+                cantidad = leer(partes[3])
+                categoria = leer(partes[4])
+                caducidad = leer(partes[5])
+
+                Producto producto = nuevo Producto(codigo,nombre,precio, cantidad,categoria,caducidad)
+                inventario.agregar(producto)
+        Fin Mientras
+
+  Fin Intentar
+
+5.Atrapar (Excepcion Archivo no Encontrado)
+        Escribir "Error al encontrar archivo"
+  Fin Atrapar
+
+6.Devolver inventario
+
+7.Fin Funcion leerInventario 
+
+
+Fin Algoritmo Sistema de Facturacion del SuperMaxi - Loja
