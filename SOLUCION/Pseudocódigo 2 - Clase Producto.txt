@@ -1,0 +1,76 @@
+Algoritmo Producto
+
+//ATRIBUTOS
+
+Definir
+        codigo, cantidad, como Entero (publico)
+        nombre, categoria, caducidad (publico)
+        precio, como Real (publico)
+
+//CONTRUCTUTOR
+
+Publico Producto ( codigo i(0-n), nombre x(a-z,A-Z," "), precio d(0.01-999.0), cantidad i(0-n), categoria x(a-z,A-Z," "), caducidad x(0-31,/))
+
+        Este.codigo = codigo;
+        Este.nombre = nombre;
+        Este.precio = precio;
+        Este.cantidad = cantidad;
+        Este.categoria = categoria;
+        Este.caducidad = caducidad;
+
+
+//SETTERS
+
+1.Procedimiento establecerCodigo(codigo i(0-n))
+        Este.codigo = codigo(Entero)
+2.Fin Procemiento establecerCodigo
+
+1.Procedimiento establecerNombre(nombre x(a-z,A-Z," "))
+        Este.nombre = nombre(Cadena)
+2.Fin Procemiento establecerNombre
+
+1.Procedimiento establecerPrecio(precio d(0.01-999.0))
+         Este.precio = precio(Real)
+2.Fin Procemiento establecerPrecio
+
+1.Procedimiento establecerCantidad(cantidad i(0-n))
+        Este.cantidad = cantidad(Entero)
+2.Fin Procemiento establecerCantidad
+
+1.Procedimiento establecerCategoria(categoria x(a-z,A-Z," "))
+        Este.categoria = categoria(Cadena)
+2.Fin Procemiento establecerCategoria
+
+1.Procedimiento establecerCaducidad(caducidad x(0-31,/))
+        Este.caducidad = caducidad(Cadena)
+2.Fin Procemiento establecerCaducidad
+
+
+//GETTERS
+
+1.Funcion Entero obtenerCodigo()
+        Devolver Este.codigo
+2.Fin Funcion obtenerCodigo
+
+1.Funcion Cadena obtenerNombre()
+        Devolver Este.nombre
+2.Fin Funcion obtenerNombre
+
+1.Funcion Real obtenerPrecio()
+        Devolver Este.precio
+2.Fin Funcion obtenerPrecio
+
+1.Funcion Entero obtenerCantidad()
+        Devolver Este.cantidad
+2.Fin Funcion obtenerCantidad
+
+1.Funcion Cadena obtenerCategoria()
+        Devolver Este.categoria
+2.Fin Funcion obtenerCategoria
+
+1.Funcion Cadena obtenerCaducidad()
+        Devolver Este.caducidad 
+2.Fin Funcion obtenerCaducidad
+
+
+Fin Algoritmo Producto
