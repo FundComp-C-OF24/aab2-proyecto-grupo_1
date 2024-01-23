@@ -1,16 +1,45 @@
 Algoritmo Sistema de Facturacion del SuperMaxi - Loja
 
   Inicio
+  Definir
+        stock, como Entero
+        subTotal, subIva, descuento, sumaDescuentos, subDescuentoAfiliado, iva, total, descuentoAfiliado, como Real
+        afiliado, como Logico
+        lista<Cadena> carrito
+
+  stock = 100
+  iva = 0.12
+  descuentoAfiliado = 0.05
+  afiliado = falso 
+
 1.Metodo Principal
 2.Definir
         nomArchivo, como Cadena
+        limfactura, como Entero
 
 3.nomArchivo = "inventario.txt"
-4.lista<Producto> inventario = leerInventario(nomArchivo)
-
-5.Para (Producto producto : inventario)
+4.limfactura = 5
+5.lista<Producto> inventario = leerInventario(nomArchivo)
+6.Para (Producto producto : inventario)
         Escribir producto.ObtenerCodigo() , ". ", producto.ObtenerNombre() , " - " , producto.ObtenerPrecio() , " - " , producto.ObtenerCantidad() , " - " , producto.ObtenerCategoria() , " - " , producto.ObtenerCaducidad()
-6.Fin Metodo Principal
+
+7.Para (i = 0 ; i < limfactura ; i = i+1)
+        Escribir "FACTURA"
+        limProductos = aleatorio(1,10)
+        generarFactura(inventario, limProductos)
+        Para (Cadena lista : carrito)
+                Escribir (lista)
+        Fin Para
+        Escribir "------------------------------"
+        Escribir "SUBTOTAL ",subTotal
+        Escribir "DESCUENTO ",sumaDescuentos,"$"
+        Escribir "AHORRO POR AFILIACION ",subDescuentoAfiliado
+        Escribir "IVA ",iva,"%"
+        Escribir "SUBIVA ",subIva
+        Escribir "TOTAL ",total
+        Escribir "------------------------------"
+  Fin Para 
+8.Fin Metodo Principal
 
 1.Funcion lista<Producto> leerInventario (archivo x(a-z,A-Z," ")):x
 2.Definir
@@ -47,6 +76,81 @@ Algoritmo Sistema de Facturacion del SuperMaxi - Loja
 6.Devolver inventario
 
 7.Fin Funcion leerInventario 
+
+1.Funcion Producto buscaProducto(lista<Producto> inventario, ran_Cod i(1-100)):
+2.Para (Producto producto : inventario)
+        Si (producto.obtenerCodigo() == ran_Cod)
+                Devolver producto
+        Fin Si
+  Fin Para
+3.Devolver nulo
+4.Fin Funcion buscarProducto
+
+1.Procedimiento aplicarDescuentoProducto(Producto producto)
+2.descuento = 0
+3.Si (producto.obtenerCantidad() > stock Y producto.obtenerCaducidad().contiene("2024"))
+        descuento = 0.30
+  Si No
+        Si (producto.obtenerCantidad() > stock)
+                descuento = 0.10
+        Si No
+                Si (producto.obtenerCaducidad().contiene("2024"))
+                        descuento = 0.20
+                Fin Si
+        Fin Si
+  Fin Si
+4.Fin Procedimiento aplicarDescuentoProducto
+
+1.Procedimiento generarFactura (lista<Producto> inventario, limProductos i:(1-10))
+2.Definir
+        preciounitario, como Real
+        codigo, cantidad, como Entero
+3.subTotal = 0
+4.subIva = 0
+5.subDescuentoAfiliado = 0
+6.sumaDescuentos = 0
+7.carrito = new ArregloLista
+8.descuento = 0
+9.Para (i = 0 ; i < limProductos ; i = i+1)
+        codigo = aleatorio(1,100)
+        Producto producto = buscaProducto(inventario, codigo)
+        cantidad = aleatorio(1,10)
+        producto.restarCantidad(cantidad)
+        Si (descuento > 0)
+                preciounitario = preciounitario - producto.obtenerPrecio * descuento
+                sumaDescuentos = sumaDescuentos + preciounitario
+                subTotal = subTotal + preciounitario * cantidad
+                carrito.agregar(producto.obtenerCodigo(),".",producto.obtenerNombre()," ",cantidad," ",descuento," ",producto.obtenerPrecio())
+        Si No
+                subTotal = subTotal + preciounitario * cantidad
+                carrito.agregar(producto.obtenerCodigo(),".",producto.obtenerNombre()," ",cantidad," ",descuento," ",producto.obtenerPrecio())
+        Fin Si
+  Fin Para
+10.verificarAfiliado()
+11.Si (afiliado)
+        total = subTotal - sumaDescuentos
+        subDescuentoAfiliado = total * descuentoAfiliado
+        total = total - subDescuentoAfiliado
+        subIva = total * iva
+        total = total + subIva
+   Si No
+        total = subTotal - sumaDescuentos
+        subIva = total * iva
+        total = total + subIva
+   Fin Si
+12.Fin Procedimiento generarFactura
+
+1.Procedimiento verificarAfiliado()
+2.Definir
+        aux, como Entero
+3.aux = aleatorio(1,2)
+4.Si (aux == 1)
+        afiliado = verdadero
+  Si No 
+        afiliado = falso
+  Fin Si
+5.Fin Procedimiento verificarAfiliado
+
 
 
 Fin Algoritmo Sistema de Facturacion del SuperMaxi - Loja

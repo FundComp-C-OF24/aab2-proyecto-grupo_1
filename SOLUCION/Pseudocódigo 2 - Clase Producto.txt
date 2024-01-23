@@ -72,5 +72,20 @@ Publico Producto ( codigo i(0-n), nombre x(a-z,A-Z," "), precio d(0.01-999.0), c
         Devolver Este.caducidad 
 2.Fin Funcion obtenerCaducidad
 
+//Restar Cantidad
+
+1.Procedimiento restarCantidad (ran_Cant i(1-10))
+2.Si (Este.cantidad > 0)
+        Si (Este.cantidad < ran_Cant)
+                Este.cantidad = Este.cantidad - ran_Cant
+        Si No
+                Escribir ""
+        Fin Si
+  Si No 
+        Escribir "No hay en STOCK"
+  Fin Si
+3.Fin Procedimiento restarCantidad
+
+
 
 Fin Algoritmo Producto
