@@ -17,11 +17,11 @@ Definir
 8.Fin Procedimiento Factura
 
 1.Funcion obtenerCodigo()
-2.		devolver Este.codigo
+2.	devolver Este.codigo
 3.Fin Funcion
 
 1.Funcion obtenerNombre()
-2.		devolver Este.nombre
+2.	devolver Este.nombre
 3.Fin Funcion
 
 1.Funcion obtenerCantidad()
@@ -29,11 +29,11 @@ Definir
 3.Fin Funcion
 
 1.Funcion obtenerDescuento()
-2.		devolver Este.descuento
+2.	devolver Este.descuento
 3.Fin Funcion
 
 1.Funcion obtenerPrecio()
-2.		devolver Este.precio
+2.	devolver Este.precio
 3.Fin Funcion
 
 1.Funcion obtenerTotal()

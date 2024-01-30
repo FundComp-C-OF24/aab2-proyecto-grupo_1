@@ -225,7 +225,7 @@ Algoritmo Sistema de Facturacion del SuperMaxi - Loja
 
 1.Procedimiento presentarInventario(lista<Producto> inventario)
 2.      Para (Producto producto : inventario)
-                Escribir producto.ObtenerCodigo() , ". ", producto.ObtenerNombre() , " - " , producto.ObtenerPrecio() , " - " , producto.ObtenerCantidad() , " - " , producto.ObtenerCategoria() , " - " , producto.ObtenerCaducidad()
+                Escribir (producto.ObtenerCodigo() , ". ", producto.ObtenerNombre() , " - " , producto.ObtenerPrecio() , " - " , producto.ObtenerCantidad() , " - " , producto.ObtenerCategoria() , " - " , producto.ObtenerCaducidad())
         Fin Para
 3.Fin Procedimiento presentarInventario
 
