@@ -1,0 +1,43 @@
+Algoritmo Factura
+
+Definir
+        codigo, cantidad, como Entero (privado)
+        descuento, precio, total, como Real (privado)
+        nombre, como Cadena (privado)
+
+1.Procedimiento Factura(codigo i(0-n), nombre x(a-z,A-Z," "), cantidad i(0-n), descuento d(0.01-n), precio d(0.01-n), total d(0.01-n))
+
+2.      Este.codigo = codigo
+3.      Este.nombre = nombre
+4.      Este.cantidad = cantidad
+5.      Este.descuento = descuento
+6.      Este.precio = precio
+7.      Este.total = total
+
+8.Fin Procedimiento Factura
+
+1.Funcion obtenerCodigo()
+2.		devolver Este.codigo
+3.Fin Funcion
+
+1.Funcion obtenerNombre()
+2.		devolver Este.nombre
+3.Fin Funcion
+
+1.Funcion obtenerCantidad()
+2.      devolver Este.cantidad
+3.Fin Funcion
+
+1.Funcion obtenerDescuento()
+2.		devolver Este.descuento
+3.Fin Funcion
+
+1.Funcion obtenerPrecio()
+2.		devolver Este.precio
+3.Fin Funcion
+
+1.Funcion obtenerTotal()
+2.      devolver Este.total
+3.Fin Funcion
+
+Fin Algoritmo Factura

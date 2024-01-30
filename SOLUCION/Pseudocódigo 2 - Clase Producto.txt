@@ -3,89 +3,84 @@ Algoritmo Producto
 //ATRIBUTOS
 
 Definir
-        codigo, cantidad, como Entero (publico)
-        nombre, categoria, caducidad (publico)
-        precio, como Real (publico)
+        codigo, cantidad, como Entero (privado)
+        nombre, categoria, caducidad (privado)
+        precio, como Real (privado)
 
 //CONTRUCTUTOR
 
-Publico Producto ( codigo i(0-n), nombre x(a-z,A-Z," "), precio d(0.01-999.0), cantidad i(0-n), categoria x(a-z,A-Z," "), caducidad x(0-31,/))
+1.Procedimiento Producto (codigo i(0-n), nombre x(a-z,A-Z," "), precio d(0.01-n), cantidad i(0-n), categoria x(a-z,A-Z," "), caducidad x(0-31,/))
+        
+2.      Este.codigo = codigo
+3.      Este.nombre = nombre
+4.      Este.precio = precio
+5.      Este.cantidad = cantidad
+6.      Este.categoria = categoria
+7.      Este.caducidad = caducidad
 
-        Este.codigo = codigo;
-        Este.nombre = nombre;
-        Este.precio = precio;
-        Este.cantidad = cantidad;
-        Este.categoria = categoria;
-        Este.caducidad = caducidad;
-
+8.Fin Procemiento Producto
 
 //SETTERS
 
 1.Procedimiento establecerCodigo(codigo i(0-n))
-        Este.codigo = codigo(Entero)
-2.Fin Procemiento establecerCodigo
+2.      Este.codigo = codigo(Entero)
+3.Fin Procemiento establecerCodigo
 
 1.Procedimiento establecerNombre(nombre x(a-z,A-Z," "))
-        Este.nombre = nombre(Cadena)
-2.Fin Procemiento establecerNombre
+2.      Este.nombre = nombre(Cadena)
+3.Fin Procemiento establecerNombre
 
-1.Procedimiento establecerPrecio(precio d(0.01-999.0))
-         Este.precio = precio(Real)
-2.Fin Procemiento establecerPrecio
+1.Procedimiento establecerPrecio(precio d(0.01-n))
+2.      Este.precio = precio(Real)
+3.Fin Procemiento establecerPrecio
 
 1.Procedimiento establecerCantidad(cantidad i(0-n))
-        Este.cantidad = cantidad(Entero)
-2.Fin Procemiento establecerCantidad
+2.      Este.cantidad = cantidad(Entero)
+3.Fin Procemiento establecerCantidad
 
 1.Procedimiento establecerCategoria(categoria x(a-z,A-Z," "))
-        Este.categoria = categoria(Cadena)
-2.Fin Procemiento establecerCategoria
+2.      Este.categoria = categoria(Cadena)
+3.Fin Procemiento establecerCategoria
 
 1.Procedimiento establecerCaducidad(caducidad x(0-31,/))
-        Este.caducidad = caducidad(Cadena)
-2.Fin Procemiento establecerCaducidad
+2.      Este.caducidad = caducidad(Cadena)
+3.Fin Procemiento establecerCaducidad
 
 
 //GETTERS
 
 1.Funcion Entero obtenerCodigo()
-        Devolver Este.codigo
-2.Fin Funcion obtenerCodigo
+2.      devolver Este.codigo
+3.Fin Funcion obtenerCodigo
 
 1.Funcion Cadena obtenerNombre()
-        Devolver Este.nombre
-2.Fin Funcion obtenerNombre
+2.      devolver Este.nombre
+3.Fin Funcion obtenerNombre
 
 1.Funcion Real obtenerPrecio()
-        Devolver Este.precio
-2.Fin Funcion obtenerPrecio
+2.      devolver Este.precio
+3.Fin Funcion obtenerPrecio
 
 1.Funcion Entero obtenerCantidad()
-        Devolver Este.cantidad
-2.Fin Funcion obtenerCantidad
+2.      devolver Este.cantidad
+3.Fin Funcion obtenerCantidad
 
 1.Funcion Cadena obtenerCategoria()
-        Devolver Este.categoria
-2.Fin Funcion obtenerCategoria
+2.      devolver Este.categoria
+3.Fin Funcion obtenerCategoria
 
 1.Funcion Cadena obtenerCaducidad()
-        Devolver Este.caducidad 
-2.Fin Funcion obtenerCaducidad
+2.      devolver Este.caducidad 
+3.Fin Funcion obtenerCaducidad
 
 //Restar Cantidad
 
 1.Procedimiento restarCantidad (ran_Cant i(1-10))
-2.Si (Este.cantidad > 0)
-        Si (Este.cantidad < ran_Cant)
+2.      Si (Este.cantidad > 0)
                 Este.cantidad = Este.cantidad - ran_Cant
-        Si No
-                Escribir ""
+        Si No 
+                Escribir "NO HAY SUFICIENTES EN STOCk"
         Fin Si
-  Si No 
-        Escribir "No hay en STOCK"
-  Fin Si
 3.Fin Procedimiento restarCantidad
-
-
 
 Fin Algoritmo Producto
