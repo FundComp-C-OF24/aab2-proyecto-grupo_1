@@ -1,0 +1,140 @@
+Algoritmo Sistema de Facturacion del SuperMaxi - Loja
+
+  Inicio
+  Definir
+        archivoInventario, como Cadena
+        archivoFactura,archivoEstadistica, como Cadena (publico)
+
+  archivoInventario = "Inventario\\Inventario.csv"
+  archivoFactura = "Facturas\\Factura.csv"
+  archivoEstadistica = "Estadistica\\Estadisticas.csv"
+
+1.Metodo Principal
+2.      Definir
+                cliente, direccion, como Cadena
+                cedula, limfactura, limProductos, op, aux como Entero
+
+3.      cliente = "Juan Manuel Gomez Lopez"
+4.      cedula = 1106951784
+5.      direccion = "La Argelia"
+6.      limfactura = 1
+7.      limProductos = 1
+8.      lista<Producto> inventario = leerInventario(archivoInventario)
+9.      Hacer
+                Escribir "Seleccione la opcion |      1.GENERAR FACTURAS     |       2.OBSERVAR INVENTARIO      |       3.ESTADISTICAS    |       4.SALIR"
+                Leer op
+                Segun (op)
+                        1 :
+                                Escribir "==================== GENERADOR DE FACTURAS ===================="
+                                Escribir "INGRESE NUMERO DE FACTURAS A GENERAR"
+                                Leer limfactura
+                                Escribir "INGRESE NUMERO DE PRODUCTOS POR FACTURAR"
+                                Leer limProductos
+                                Escribir "DESEA INGRESAR ALGUNA DIRECCION?     1. SI   |   2.NO"
+                                Si (Leer == 1)
+                                        Escribir "INGRESE LA DIRECCION"
+                                        Leer direccion
+                                SiNo
+                                        Escribir "SE ASIGNARA UNA DIRECCION ALEATORIA"
+                                Fin Si
+                                Escribir "DESEA INGRESAR ALGUN NOMBRE?    1. SI  |   2. NO"
+                                Si (Leer == 1)
+                                        Escribir "INGRESE EL NOMBRE"
+                                        Leer cliente
+                                        Escribir "CEDULA DEL CLIENTE"
+                                        Leer cedula
+                                Si No
+                                        Escribir "SE ASIGNARA UN NOMBRE Y CEDULA ALEATORIA"
+                                Fin Si
+                                AnimacionCargando("Generando")
+                                Para (i = 0 ; i < limfactura ; i = i + 1)
+                                        Factura.generarFactura(inventario, limProductos, cliente, cedula, direccion, i+1)
+                                Fin Para
+                                ModificarInventario(inventario)
+                                Escribir "DESEA ABIR EL ARCHIVO?  1. SI   |   2.NO"
+                                Leer aux
+                                Si (aux == 1)
+                                        AnimacionCargando("Abriendo")
+                                        AbrirArchivo(archivoFactura)
+                                Fin Si
+                        2:
+                                AnimacionCargando("Abriendo")
+                                AbrirArchivo(archivoInventario)
+                        3:
+                                Si (Factura.archivoVacio(archivoEstadistica))
+                                        AnimacionCargando("Abriendo")
+                                        AbrirArchivo(archivoEstadistica)
+                                Si No
+                                        Escribir "NO HAY FACTURAS PARA GENERAR ESTADISTICA"
+                                Fin Si
+                Fin Segun
+        Mientras que (op != 4)
+
+10.Fin Metodo Principal
+
+1.Funcion lista<Producto> leerInventario (archivo x(a-z,A-Z," ")):x
+2.      Definir
+                linea, nombre, categoria, caducidad, como Cadena
+                codigo, Cantidad como Entero
+                precio, como Real
+                partes(6),Cadena[a-z,A-Z," "]
+
+3.      lista<Producto> inventario = nuevo Arreglolista
+
+4.      Intentar (hacer copia de (nuevo Archivo(archivo)))
+
+                Mientras (leer hasta la ultima linea) hacer
+                        linea = leer.porlinea
+                        partes[] = leer.hasta(";")
+
+                        codigo = leer(partes[0])
+                        nombre = leer(partes[1])
+                        precio = leer(partes[2])
+                        cantidad = leer(partes[3])
+                        categoria = leer(partes[4])
+                        caducidad = leer(partes[5])
+
+                        Producto producto = nuevo Producto(codigo,nombre,precio, cantidad,categoria,caducidad)
+                        inventario.agregar(producto)
+                Fin Mientras
+
+        Fin Intentar
+        Atrapar (Excepcion Archivo no Encontrado)
+                Escribir "Error al encontrar archivo"
+        Fin Atrapar
+
+5.      devolver inventario
+
+6.Fin Funcion leerInventario 
+
+1.Procedimiento presentarInventario(lista<Producto> inventario)
+2.      Para (Producto producto : inventario)
+                Escribir (producto.obtenerCodigo() , ". ", producto.obtenerNombre() , " - " , producto.obtenerPrecio() , " - " , producto.obtenerCantidad() , " - " , producto.obtenerCategoria() , " - " , producto.obtenerCaducidad())
+        Fin Para
+3.Fin Procedimiento presentarInventario
+
+1.Procedimiento AnimacionCargando(texto x:(a-z,A-Z))
+
+x.Fin Procedimieno AnimacionCargando
+
+1.Procedimiento AbrirArchivo(nombreArchivo x:(a-z,A-Z," "))
+2.      Archivo file = nuevo Archivo(nombreArchivo)
+3.      Intentar
+                abrir archivo(archivo)
+        Fin Intentar
+        Atrapar (Excepcion)
+                Escribir "NO SE PUDO ABRIR EL ARCHIVO"
+        Fin Atrapar
+4.Fin Procedimiento AbrirArchivo
+
+1.Procedimiento ModificarInventario(lista<Producto> inventario)
+2.      Intentar(EscritorArchivo fw = nuevo EscritorArchivo(archivoInventario))
+                Para (Producto producto : inventario)
+                        fw.write(producto.obtenerCodigo(),";",producto.obtenerNombre(),";",producto.obtenerPrecio(),";",producto.obtenerCantidad(),";",producto.obtenerCategoria(),";",producto.obtenerCaducidad())
+                Fin Para
+        Fin Intentar
+        Atrapar
+        Fin Atrapar
+3.Fin Procedimiento ModificarInventario
+
+Fin Algoritmo Sistema de Facturacion del SuperMaxi - Loja

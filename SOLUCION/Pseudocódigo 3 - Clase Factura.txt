@@ -1,9 +1,21 @@
 Algoritmo Factura
 
-Definir
+  Definir
         codigo, cantidad, como Entero (privado)
         descuento, precio, total, como Real (privado)
         nombre, como Cadena (privado)
+
+        alimentacionD, educacionD, hogarD, vestimentaD, saludD, stock, como Entero
+        subTotal, subIva, descuento, sumaDescuentos, subDescuentoAfiliado, iva, total, descuentoAfiliado, como Real
+        cadena_subTotal, cadena_subIva, cadena_sumaDescuentos, cadena_subDescuentosAfiliado, cadena_total, fechaFormat, archivoInventario como Cadena
+        Lista<Factura> carrito
+
+  iva = 0.12
+  descuentoAfiliado = 0.05
+  stock = 100
+  archivoEstadistica = "Estadistica\\Estadisticas.csv" (publico)
+  archivoFactura = "Facturas\\Factura.csv" (publico)
+  archivoInventario = "Inventario\\Inventario.csv"
 
 1.Procedimiento Factura(codigo i(0-n), nombre x(a-z,A-Z," "), cantidad i(0-n), descuento d(0.01-n), precio d(0.01-n), total d(0.01-n))
 
@@ -39,5 +51,222 @@ Definir
 1.Funcion obtenerTotal()
 2.      devolver Este.total
 3.Fin Funcion
+
+1.Procedimiento generarFactura(List<Producto> inventario, limProductos i:(1-10), cliente x:(a-z,A-Z," "), cedula i:(0-n), direccion x:(a-z,A-Z), numFactura i:(0-n))
+2.      Definir
+                precioT, preciounitario, como Real
+                autorizacionSRI, codigo, cantidad, como Entero
+3.      ReinicioVariables()
+4.      autorizacionSRI = aleatorio(1,100)
+5.      Para (i = 0 ; i < limProductos ; i = i+1)
+                codigo = aleatorio(1,100)
+                Producto producto = buscaProducto(inventario, codigo)
+                cantidad = aleatorio(1,10)
+                Si (producto.obtenerCantidad() > cantidad)
+                        producto.restarCantidad(cantidad)
+                        preciounitario = producto.obtenerPrecio()
+                        aplicarDescuentoProducto(producto)
+                        Si (descuento > 0)
+                                preciounitario = preciounitario - producto.obtenerPrecio() * descuento
+                                precioT = preciounitario * cantidad
+                                sumaDescuentos = sumaDescuentos + preciounitario
+                                subTotal = subTotal + preciounitario * cantidad
+                                Factura factura = nuevo Factura(codigo, producto.obtenerNombre(), cantidad, descuento, producto.obtenerPrecio(), precioT)
+                                carrito.agregar(factura)
+                        Si No
+                                subTotal = subTotal + preciounitario * cantidad
+                                precioT = preciounitario * cantidad
+                                Factura factura = nuevo Factura(codigo, producto.obtenerNombre(), cantidad, descuento, producto.obtenerPrecio(), precioT)
+                                carrito.agregar(factura)
+                        Fin Si
+                        DeduciblesImpuestos(producto.obtenerCategoria())
+                        EscribirEstadistica(codigo, producto.obtenerNombre(), producto.obtenerCategoria(), cantidad)
+                Si No
+                        Si (producto.obtenerCantidad > 0)
+                                preciounitario = producto.obtenerPrecio()
+                                aplicarDescuentoProducto(producto)
+                                Si (descuento > 0)
+                                        preciounitario = preciounitario - producto.obtenerPrecio() * descuento
+                                        precioT = preciounitario * cantidad
+                                        sumaDescuentos = sumaDescuentos + preciounitario
+                                        subTotal = subTotal + preciounitario * cantidad
+                                        Factura factura = new Factura (codigo, producto.obtenerNombre(), producto.obtenerCantidad(), descuento, producto.obtenerPrecio())
+                                        carrito.agregar(factura)
+                                Si No
+                                        subTotal = subTotal + preciounitario * cantidad
+                                        precioT = preciounitario * cantidad
+                                        Factura factura = new Factura (codigo, producto.obtenerNombre(), producto.obtenerCantidad(), descuento, producto.obtenerPrecio())
+                                        carrito.agregar(factura)
+                                Fin Si
+                                DeduciblesImpuestos(producto.obtenerCategoria)
+                                EscribirEstadistica(codigo, producto, obtenerNombre(), producto.obtenerCantidad(), descuento, producto.obtenerPrecio(), precioT)
+                                producto.establecerCantidad(0)
+                        Fin Si
+                Fin Si
+        Fin Para
+6.      Si (verificarAfiliado())
+                total = subTotal - sumaDescuentos
+                subDescuentoAfiliado = total * descuentoAfiliado
+                total = total - subDescuentoAfiliado
+                subIva = total * iva
+                total = total + subIva
+        Si No
+                total = subTotal - sumaDescuentos
+                subIva = total * iva
+                total = total + subIva
+        Fin Si
+7.      Si (carrito esta vacio)
+                GenerarArchivoFactura(carrito, cliente, cedula, direccion, autorizacionSRI, numFactura, hogarD, educacionD, alimentacionD, vestimentaD, saludD)
+        Fin Si
+8.Fin Procedimiento generarFactura
+
+1.Funcion verificarAfiliado():l
+2.      Definir
+                aux, como Entero
+3.      aux = aleatorio(1,2)
+4.      Devolver aux
+5.Fin Funcion verificarAfiliado
+
+1.Procedimiento aplicarDescuentoProducto(Producto producto)
+2.      descuento = 0
+3.      Si (producto.obtenerCantidad() > stock Y producto.obtenerCaducidad().contiene("2024"))
+                descuento = 0.30
+        Si No
+                Si (producto.obtenerCantidad() > stock)
+                        descuento = 0.10
+                Si No
+                        Si (producto.obtenerCaducidad().contiene("2024"))
+                                descuento = 0.20
+                        Fin Si
+                Fin Si
+        Fin Si
+4.Fin Procedimiento aplicarDescuentoProducto
+
+1.Procedimiento reinicioVariables()
+2.      subTotal = 0
+3.      subIva = 0
+4.      total = 0
+5.      subDescuentoAfiliado = 0
+6.      sumaDescuentos = 0
+7.      carrito = new ListaArreglo<>()
+8.      descuento = 0
+9.      alimentacionD = 0
+10.     educacionD = 0
+11.     hogarD = 0
+12.     vestimentaD = 0
+13.     saludD = 0
+14.Fin Procedimiento reinicioVariables
+
+1.Procedimiento TransformarenDosDecimals()
+2.      FormatoDecimal formato = FormatoDecimal("#.##");
+3.      cadena_subTotal = formato.format(subTotal)
+4.      cadena_subIva = formato.format(subIva)
+5.      cadena_sumaDescuentos = formato.format(sumaDescuentos)
+6.      cadena_subDescuentoAfiliado = formato.format(subDescuentoAfiliado)
+7.      cadena_total = formato.format(total)
+8.Fin Procedimiento TransformarenDosDecimals
+
+1.Procedimiento DeduciblesImpuestos(categoriaD x:(a-z,A-Z))
+2.      Segun (categoriaD) hacer
+                "Alimentacion" :
+                        alimentacionD = aleatorio(1,10)
+                "Educacion"
+                        educacionD = aleatorio(1,10)
+                "Hogar"
+                        hogarD = aleatorio(1,10)
+                "Vestimenta"
+                        vestimentaD = aleatorio(1,10)
+                "Salud"
+                        saludD = aleatorio(1,10)
+        Fin Segun
+3.Fin Procedimiento DeduciblesImpuestos
+
+1.Funcion archivoVacio(archivo x(a-z,A-Z)):l
+2.      Archivo file = nuevo Archivo(archivo)
+3.      Si (!file.existe() O file.esDirectorio())
+                Devolver falso
+        Fin Si
+4.      devolver file.dimension() > 0
+5.Fin Funcion archivoVacio
+
+1.Funcion Producto buscaProducto(lista<Producto> inventario, ran_Cod i(1-100))
+2.      Para (Producto producto : inventario)
+                Si (producto.obtenerCodigo() == ran_Cod)
+                        Devolver producto
+                Fin Si
+        Fin Para
+3.      devolver nulo
+4.Fin Funcion buscarProducto
+
+1.Procedimiento escribirEstadistica(codigo i(1-100), nombre x(a-z,A-Z," "), categoria x(a-z,A-Z), nroVentas i(1-n))
+2.      EscritorArchivo fw = nuevo EscritorArchivo(archivoEstadistica, verdadero)
+3.      Intentar
+                Si (archivoVacio(archivoEstadistica))
+                        fw.escribir(fechaFormat + ";" + codigo + ";" + nombre + ";" + categoria + ";" + nroVentas)
+                Si No
+                        fw.escribir
+                        fw.escribir(fechaFormat + ";" + codigo + ";" + nombre + ";" + categoria + ";" + nroVentas)
+                Fin Si
+        Fin Intentar
+        Atrapar (Excepcion)
+                Escribir "Error al encontrar archivo "
+        Fin Atrapar
+4.Fin Procedimiento escribirEstadistica
+
+1.Procedimiento GenerarArchivoFactura(List<Factura> carrito, cliente x:(a-z,A-Z," "), cedula i:(0-n), direccion x:(a-z,A-Z," "), autorizacionSRI i:(0-n), numFactura i:(0-n), hogarD i:(0-n), educacionD i:(0-n), alimentacionD i:(0-n), vestimentaD i:(0-n), saludD i:(0-n))
+2.      Intentar (EscritorArchivo fw = nuevo EscritorArchivo(facturas,verdadero))
+                Si (!facturas.existe)
+                        facturas.crear nuevo Archivo
+                Fin Si
+                TransformarenDosDecimals()
+                fw.escribir("----------------------------------------------- SUPERMAXI -----------------------------------------------;")
+                fw.escribir("                                           DIRECCION SUCURSAL:                                           ;")
+                fw.escribir("                                           AV. 18 DE NOVIEMBRE                                           ;")
+                fw.escribir("                                             LOJA - ECUADOR                                              ;")
+                fw.escribir("                                            RUC:1790016919001                                            ;")
+                fw.escribir("---------------------------------------------------------------------------------------------------------;")
+                fw.escribir("COD;Descipcion;Cant;Descuento;PrecioU;Total;")
+                Para (Factura prodFact : carrito)
+                        fw.escribir(prodFact.obtenerCodigo() + ";" + prodFact.obtenerNombre() + ";" + prodFact.obtenerCantidad() + ";"
+                        + prodFact.obtenerDescuento() + ";" + prodFact.obtenerPrecio() + ";"
+                        + formatoTotal)
+                Fin Para
+                fw.escribir("---------------------------------------------------------------------------------------------------------;")
+                fw.escribir("SUBTOTAL;", cadena_subTotal ,";")
+                fw.escribir("DESCUENTO;", cadena_sumaDescuentos ,";")
+                fw.escribir("AHORRO POR AFILIACION;", cadena_subDescuentosAfiliado ,";")
+                fw.escribir("IVA;", iva , "%" , ";")
+                fw.escribir("SUBIVA;", cadena_subIva ,";")
+                fw.escribir("TOTAL;", cadena_total ,";")
+                fw.escribir("--------------------------------------------------------;")
+                fw.escribir("CLIENTE;", cliente ,";")
+                fw.escribir("CEDULA;", cedula ,";")
+                fw.escribir("DIRECCION;", direccion ,";")
+                fw.escribir("FACTURA Nro;", numFactura ,";")
+                fw.escribir("FEHCA EMISION (dd/mm/aaaa);", fechaFormat ,";")
+                fw.escribir("AUTORIZACION SRI;", autorizacionSRI ,";")
+                fw.escribir("Forma de Pago;", formaPago() ,";")
+                fw.escribir("========== DEDUCIBLES ==========;")
+                fw.escribir("Vivienda;", hogarD, "%" ,";")
+                fw.escribir("Educacion;", educacionD, "%" ,";")
+                fw.escribir("Alimentacion;", alimentacionD, "%" ,";")
+                fw.escribir("Vestimenta;", vestimentaD, "%" ,";")
+                fw.escribir("Salud;", saludD ,"%", ";")
+                fw.escribir("---------------------------------")
+        Fin Intentar
+        Atrapar (Excepcion)
+                Escribir "EROR AL CREAR ARCHIVO "
+        Fin Atrapar
+
+1.Funcion formaPago():x
+2.      Definir
+                n, como Entero
+3.      n = aleatorio(1,3)
+4.      Segun n hacer
+                1 : Devolver "Efectivo"
+                2 : Devolver "tarjeta de credito"
+                3 : Devolver "tarjeta de debito"
+        Fin Segun
+5.Fin Funcion formaPago
 
 Fin Algoritmo Factura
