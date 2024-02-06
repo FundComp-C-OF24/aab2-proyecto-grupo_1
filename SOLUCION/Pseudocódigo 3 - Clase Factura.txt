@@ -79,8 +79,8 @@ Algoritmo Factura
                                 Factura factura = nuevo Factura(codigo, producto.obtenerNombre(), cantidad, descuento, producto.obtenerPrecio(), precioT)
                                 carrito.agregar(factura)
                         Fin Si
-                        DeduciblesImpuestos(producto.obtenerCategoria())
-                        EscribirEstadistica(codigo, producto.obtenerNombre(), producto.obtenerCategoria(), cantidad)
+                        deduciblesImpuestos(producto.obtenerCategoria())
+                        escribirEstadistica(codigo, producto.obtenerNombre(), producto.obtenerCategoria(), cantidad)
                 Si No
                         Si (producto.obtenerCantidad > 0)
                                 preciounitario = producto.obtenerPrecio()
@@ -98,8 +98,8 @@ Algoritmo Factura
                                         Factura factura = new Factura (codigo, producto.obtenerNombre(), producto.obtenerCantidad(), descuento, producto.obtenerPrecio())
                                         carrito.agregar(factura)
                                 Fin Si
-                                DeduciblesImpuestos(producto.obtenerCategoria)
-                                EscribirEstadistica(codigo, producto, obtenerNombre(), producto.obtenerCantidad(), descuento, producto.obtenerPrecio(), precioT)
+                                deduciblesImpuestos(producto.obtenerCategoria)
+                                escribirEstadistica(codigo, producto, obtenerNombre(), producto.obtenerCantidad(), descuento, producto.obtenerPrecio(), precioT)
                                 producto.establecerCantidad(0)
                         Fin Si
                 Fin Si
@@ -166,7 +166,7 @@ Algoritmo Factura
 7.      cadena_total = formato.format(total)
 8.Fin Procedimiento TransformarenDosDecimals
 
-1.Procedimiento DeduciblesImpuestos(categoriaD x:(a-z,A-Z))
+1.Procedimiento deduciblesImpuestos(categoriaD x:(a-z,A-Z))
 2.      Segun (categoriaD) hacer
                 "Alimentacion" :
                         alimentacionD = aleatorio(1,10)
@@ -179,7 +179,7 @@ Algoritmo Factura
                 "Salud"
                         saludD = aleatorio(1,10)
         Fin Segun
-3.Fin Procedimiento DeduciblesImpuestos
+3.Fin Procedimiento deduciblesImpuestos
 
 1.Funcion archivoVacio(archivo x(a-z,A-Z)):l
 2.      Archivo file = nuevo Archivo(archivo)
