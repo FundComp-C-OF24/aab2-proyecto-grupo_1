@@ -114,8 +114,40 @@ Algoritmo Sistema de Facturacion del SuperMaxi - Loja
 3.Fin Procedimiento presentarInventario
 
 1.Procedimiento AnimacionCargando(texto x:(a-z,A-Z))
+2.      Definir
+                tiempo, repeticiones, como Entero
+                animacion(4),Cadena ["|", "/", "-", "\\"]
+3.      tiempo = 200 (microsegundos)
+4.      repeticiones = 30
+5.      animacion = {"|", "/", "-", "\\"}
+6.      Escribir "===", (texto + "...") , "==="
+7.      Para (i = 0 ; i < repeticiones ; i = i + 1)
+                Intentar
 
-x.Fin Procedimieno AnimacionCargando
+                Fin Intentar
+                Atrapar (Excepcion)
+                        Escribir error
+                Fin Atrapar
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+                Escribir (animacion[i % animacion.dimension])
+        Fin Para
+        Escribir "!COMPLETADO!"
+8.Fin Procedimieno AnimacionCargando
 
 1.Procedimiento AbrirArchivo(nombreArchivo x:(a-z,A-Z," "))
 2.      Archivo file = nuevo Archivo(nombreArchivo)
