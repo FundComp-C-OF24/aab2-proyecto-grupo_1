@@ -123,7 +123,7 @@ Algoritmo Sistema de Facturacion del SuperMaxi - Loja
 6.      Escribir "===", (texto + "...") , "==="
 7.      Para (i = 0 ; i < repeticiones ; i = i + 1)
                 Intentar
-
+                        esperar(tiempo)
                 Fin Intentar
                 Atrapar (Excepcion)
                         Escribir error

@@ -142,20 +142,20 @@ Algoritmo Factura
         Fin Si
 4.Fin Procedimiento aplicarDescuentoProducto
 
-1.Procedimiento reinicioVariables()
+1.Procedimiento ReinicioVariables()
 2.      subTotal = 0
 3.      subIva = 0
 4.      total = 0
 5.      subDescuentoAfiliado = 0
 6.      sumaDescuentos = 0
-7.      carrito = new ListaArreglo<>()
+7.      carrito = nuevo ListaArreglo<>()
 8.      descuento = 0
 9.      alimentacionD = 0
 10.     educacionD = 0
 11.     hogarD = 0
 12.     vestimentaD = 0
 13.     saludD = 0
-14.Fin Procedimiento reinicioVariables
+14.Fin Procedimiento ReinicioVariables
 
 1.Procedimiento TransformarenDosDecimals()
 2.      FormatoDecimal formato = FormatoDecimal("#.##");
